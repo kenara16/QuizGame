@@ -50,7 +50,7 @@ public class TeamClass {
     //this returns an ArrayList of checkbox nodes that uses the string arraylist to make the checkbox labels
     public ArrayList<CheckBox> returnTextArrayListCheckbox(){
         ArrayList<CheckBox> checkBoxArr = new ArrayList<CheckBox>();
-        String arrText;
+
         for (String str : backlog.getCheckBoxOutput()){
             checkBoxArr.add(new CheckBox(str));
         }

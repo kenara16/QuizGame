@@ -3,28 +3,36 @@ package backend;
 //Placeholder backlog class
 
 import java.util.ArrayList;
+import java.util.List;
 
 /* The String objects are placeholders.  We will access the DB service from here and
 get the required information.  Eventually, this information will be passed to the team class
 and converted into Text objects and other nodes */
 public class Backlog {
 
-    ArrayList<String> checkBox = new ArrayList<String>();
-    //CheckBoxDBService service = new CheckBoxDBService()
+    private List<String> storyDeck;
 
-    //Constructor
-    public Backlog(){};
+    public Backlog() {}
 
-    public void backlogReturn(){
-        System.out.println("Hello from a backlog class");
+    public int GetNumOfStoriesInDeck() {
+        if(this.storyDeck == null) {
+            assert false;
+        }
+        return this.storyDeck.size();
     }
 
-    public ArrayList<String> getCheckBoxOutput() {
-        return checkBox;
+    public String GetStoryByIndex(int index) {
+        if(index >= this.storyDeck.size()) {
+            System.out.println("Request Index is bigger than the number of stories in the deck");
+            assert(false);
+        }
+        return storyDeck.get(index);
     }
 
-    public void setCheckBoxOutput(ArrayList<String> checkBoxOutput) {
-        this.checkBox = checkBoxOutput;
+
+    public List<String> getCheckBoxOutput() {
+        this.storyDeck = new ArrayList<String>(StoryManager.GetStoriesFromMongoDB());
+        return this.storyDeck;
     }
 
 
