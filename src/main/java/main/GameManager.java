@@ -35,7 +35,6 @@ public class GameManager
 
         Button button1 = new Button("Initial Screen");
         button1.setOnAction(new EventHandler<ActionEvent>() {
-
             public void handle(ActionEvent event) {
                 getGameManager().cardScene1();
             }
@@ -114,8 +113,8 @@ public class GameManager
         button1.setOnAction(new EventHandler<ActionEvent>() {
 
             public void handle(ActionEvent event) {
-                getGameManager().revealCards();
                 // Add logic to show which cards are selected and add them to "played" database.
+                getGameManager().revealCards();
             }
         });
 
