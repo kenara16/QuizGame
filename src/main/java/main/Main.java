@@ -1,6 +1,7 @@
 package main;
 
 import backend.Backlog;
+import backend.Story;
 import backend.TeamClass;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

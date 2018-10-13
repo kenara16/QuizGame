@@ -1,13 +1,8 @@
 package backend;
 
-//Placeholder backlog class
-
 import java.util.ArrayList;
 import java.util.List;
 
-/* The String objects are placeholders.  We will access the DB service from here and
-get the required information.  Eventually, this information will be passed to the team class
-and converted into Text objects and other nodes */
 public class Backlog {
 
     private List<Story> storyDeck;
@@ -35,10 +30,4 @@ public class Backlog {
         this.storyDeck = StoryManager.GetStoriesFromMongoDB();
         return this.storyDeck;
     }
-
-    public List<Story> getStoryDeck(){
-        return this.storyDeck;
-    }
-
-
 }

@@ -2,12 +2,14 @@ package backend;
 
 import javafx.scene.*;
 import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 public class TeamClass {
 
-    //I am currently using a dummy backlog class, will replace
     private Backlog backlog = new Backlog();
     private Integer totalPoints;
     private Integer pointsToSpend;
@@ -16,8 +18,19 @@ public class TeamClass {
 
     public TeamClass(Backlog back){
         this.backlog = back;
-        totalPoints = 40;
+        totalPoints = determineTotalPoints(this.backlog);
         pointsToSpend = 0;
+    }
+
+    //determines how many total points the team must spend to win based off backlog
+    private int determineTotalPoints(Backlog back){
+        int totalPoints = 0;
+
+        for (Story story : back.getCheckBoxOutput()){
+            totalPoints += story.GetPoint();
+        }
+
+        return totalPoints;
     }
 
     //This returns a teams total points converted into a Text node
@@ -26,7 +39,14 @@ public class TeamClass {
         return txt;
     }
 
+    //This returns a team's accrued points to spend into a Text node
+    public Text returnPointsToSpend(){
+        Text txt = new Text(pointsToSpend.toString());
+        return txt;
+    }
+
     //the next two methods increase and decrease the overall point amount
+
     public void increaseTotalPoints(int amt){
         totalPoints += amt;
     }
@@ -36,7 +56,7 @@ public class TeamClass {
     }
 
     /*The next two methods increase and decrease the amount of
-    points the team has accured to spend against their backlog
+    points the team has accrued to spend against their backlog
     on any given round */
 
     public void increasePointsToSpend(int amt){
@@ -47,25 +67,20 @@ public class TeamClass {
         pointsToSpend -= amt;
     }
 
-    //this returns an ArrayList of checkbox nodes that uses the string arraylist to make the checkbox labels
-    /*
-    public ArrayList<CheckBox> returnTextArrayListCheckbox(){
-        ArrayList<CheckBox> checkBoxArr = new ArrayList<CheckBox>();
+    //returns an ArrayList of GirdPanes for to display in Backlog UI Object
+    public ArrayList<GridPane> returnTextArrayListCheckbox(){
+        ArrayList<GridPane> grids = new ArrayList<GridPane>();
 
-        for (String str : backlog.getCheckBoxOutput()){
-            checkBoxArr.add(new CheckBox(str));
+        for (Story story : backlog.getCheckBoxOutput()){
+            grids.add(story.GetGridPane());
         }
-        return checkBoxArr;
-    }
-    */
-    public void setBacklog(Backlog backlog) {
-        this.backlog = backlog;
+
+        return grids;
     }
 
     public Integer getTotalPoints() {
         return totalPoints;
     }
-
     public void setTotalPoints(Integer totalPoints) {
         this.totalPoints = totalPoints;
     }
@@ -73,10 +88,8 @@ public class TeamClass {
     public Integer getPointsToSpend() {
         return pointsToSpend;
     }
-
     public void setPointsToSpend(Integer pointsToSpend) {
         this.pointsToSpend = pointsToSpend;
     }
-
 
 }
