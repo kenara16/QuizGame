@@ -48,6 +48,7 @@ public class TeamClass {
     }
 
     //this returns an ArrayList of checkbox nodes that uses the string arraylist to make the checkbox labels
+    /*
     public ArrayList<CheckBox> returnTextArrayListCheckbox(){
         ArrayList<CheckBox> checkBoxArr = new ArrayList<CheckBox>();
 
@@ -56,7 +57,7 @@ public class TeamClass {
         }
         return checkBoxArr;
     }
-
+    */
     public void setBacklog(Backlog backlog) {
         this.backlog = backlog;
     }

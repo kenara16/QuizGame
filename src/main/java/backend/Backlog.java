@@ -36,5 +36,9 @@ public class Backlog {
         return this.storyDeck;
     }
 
+    public List<Story> getStoryDeck(){
+        return this.storyDeck;
+    }
+
 
 }
