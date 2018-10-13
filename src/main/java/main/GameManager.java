@@ -1,12 +1,14 @@
 package main;
 
 import formattedItems.CardClass;
+import formattedItems.QuizClass;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -145,6 +147,7 @@ public class GameManager
         this.stage.setScene(scene);
         this.stage.show();
     }
+
     public void revealCards()
     {
         this.stage.setTitle("Reveal Cards");
@@ -166,6 +169,18 @@ public class GameManager
     public void quizScene1()
     {
         this.stage.setTitle("Quiz Team 1");
+        BorderPane layout = new BorderPane();
+        ArrayList<String> answers = new ArrayList<String>();
+        String question= "This is the test question?";
+        answers.add(0,"a. Some Answer");
+        answers.add(1,"b. Some Answer");
+        answers.add(2,"c. Some Answer");
+        answers.add(3,"d. Some Answer");
+        VBox quiz = new QuizClass(answers,question).getQuiz();
+        quiz.setAlignment(Pos.CENTER);
+        VBox team1Backlog= new VBox(20);
+        VBox team2Backlog= new VBox(20);
+        HBox confirmCards = new HBox(20);
 
         Button button1 = new Button("Quiz Team 1");
         button1.setOnAction(new EventHandler<ActionEvent>() {
@@ -174,8 +189,17 @@ public class GameManager
                 getGameManager().quizScene2();
             }
         });
-        HBox hbox = new HBox(button1);
-        Scene scene = new Scene(hbox, 400, 400);
+        confirmCards.setAlignment(Pos.CENTER);
+        confirmCards.getChildren().add(button1);
+
+        layout.setCenter(quiz);
+        layout.setLeft(team1Backlog);
+        layout.setRight(team2Backlog);
+        layout.setBottom(confirmCards);
+
+
+
+        Scene scene = new Scene(layout, 600, 600);
         this.stage.setScene(scene);
         this.stage.show();
         this.stage.setScene(scene);
