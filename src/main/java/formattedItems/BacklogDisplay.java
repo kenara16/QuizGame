@@ -4,27 +4,28 @@ import backend.Story;
 import backend.TeamClass;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class BacklogDisplay {
 
     private TeamClass team;
-    private HBox hbox;
+    private VBox vBox = new VBox();
 
     public BacklogDisplay(TeamClass team){
         this.team = team;
-        hbox.getChildren().add(team.returnTextPoints());
-        hbox.getChildren().add(team.returnPointsToSpend());
+        vBox.getChildren().add(team.returnTextPoints());
+        vBox.getChildren().add(team.returnPointsToSpend());
         addAllGrids(team);
     }
 
     public void addAllGrids(TeamClass team){
         for (GridPane grid : team.returnTextArrayListCheckbox()){
-            hbox.getChildren().add(grid);
+            vBox.getChildren().add(grid);
         }
     }
 
-    public HBox getHBox(){
-        return this.hbox;
+    public VBox getHBox(){
+        return this.vBox;
     }
 
 }

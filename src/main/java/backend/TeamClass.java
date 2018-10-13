@@ -11,15 +11,15 @@ import javafx.scene.text.Text;
 public class TeamClass {
 
     private Backlog backlog = new Backlog();
-    private Integer totalPoints;
-    private Integer pointsToSpend;
+    Integer totalPoints;
+    Integer pointsToSpend;
 
     public TeamClass(){};
 
     public TeamClass(Backlog back){
         this.backlog = back;
         totalPoints = determineTotalPoints(this.backlog);
-        pointsToSpend = 0;
+        this.pointsToSpend = 0;
     }
 
     //determines how many total points the team must spend to win based off backlog
