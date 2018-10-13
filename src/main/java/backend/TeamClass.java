@@ -11,8 +11,8 @@ import javafx.scene.text.Text;
 public class TeamClass {
 
     private Backlog backlog = new Backlog();
-    Integer totalPoints;
-    Integer pointsToSpend;
+    private Integer totalPoints;
+    private Integer pointsToSpend;
 
     public TeamClass(){};
 
