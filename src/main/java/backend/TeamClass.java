@@ -35,13 +35,13 @@ public class TeamClass {
 
     //This returns a teams total points converted into a Text node
     public Text returnTextPoints(){
-        Text txt = new Text(totalPoints.toString());
+        Text txt = new Text("Total points remaining: " + totalPoints.toString());
         return txt;
     }
 
     //This returns a team's accrued points to spend into a Text node
     public Text returnPointsToSpend(){
-        Text txt = new Text(pointsToSpend.toString());
+        Text txt = new Text("Points to spend this round: " + pointsToSpend.toString());
         return txt;
     }
 

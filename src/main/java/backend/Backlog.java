@@ -30,4 +30,5 @@ public class Backlog {
         this.storyDeck = StoryManager.GetStoriesFromMongoDB();
         return this.storyDeck;
     }
+
 }
