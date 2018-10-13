@@ -10,18 +10,19 @@ get the required information.  Eventually, this information will be passed to th
 and converted into Text objects and other nodes */
 public class Backlog {
 
-    private List<String> storyDeck;
+    private List<Story> storyDeck;
 
     public Backlog() {}
 
     public int GetNumOfStoriesInDeck() {
         if(this.storyDeck == null) {
+            System.out.println("No Story objects in Backlog class");
             assert false;
         }
         return this.storyDeck.size();
     }
 
-    public String GetStoryByIndex(int index) {
+    public Story GetStoryByIndex(int index) {
         if(index >= this.storyDeck.size()) {
             System.out.println("Request Index is bigger than the number of stories in the deck");
             assert(false);
@@ -30,8 +31,8 @@ public class Backlog {
     }
 
 
-    public List<String> getCheckBoxOutput() {
-        this.storyDeck = new ArrayList<String>(StoryManager.GetStoriesFromMongoDB());
+    public List<Story> getCheckBoxOutput() {
+        this.storyDeck = StoryManager.GetStoriesFromMongoDB();
         return this.storyDeck;
     }
 
