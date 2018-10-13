@@ -19,8 +19,8 @@
         <module name="QuizGame" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="QuizGame" target="7" />
+    <bytecodeTargetLevel target="10">
+      <module name="QuizGame" target="10" />
     </bytecodeTargetLevel>
   </component>
 </project>
