@@ -14,7 +14,12 @@ public class TeamClass {
     private Integer totalPoints;
     private Integer pointsToSpend;
 
-    public TeamClass(){};
+    public TeamClass()
+    {
+        //points placeholders for purpose of getting GUI working
+        totalPoints = 100;
+        pointsToSpend=25;
+    };
 
     public TeamClass(Backlog back){
         this.backlog = back;
