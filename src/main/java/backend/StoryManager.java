@@ -12,11 +12,10 @@ import java.util.List;
 public class StoryManager {
 
     private static StoryManager pInstance;
-
     private MongoClient mongoClient;
     private MongoCollection<Document> doc;
-    private final String STORY_NUM = "number";
-    private final String STORY_POINT = "point";
+    private final String STORY_NUM = "Number";
+    private final String STORY_POINT = "Point";
 
     private StoryManager() {
 
@@ -36,7 +35,7 @@ public class StoryManager {
     }
 
 
-    public static List<String> GetStoriesFromMongoDB() {
+    public static List<Story> GetStoriesFromMongoDB() {
         final StoryManager manager = StoryManager.GetManagerInstance();
         assert (manager != null);
 
@@ -51,17 +50,16 @@ public class StoryManager {
         }
 
         // Read the data and attach it to list.
-        final List<String> storyList = new ArrayList<String>();
+        final List<Story> storyList = new ArrayList<Story>();
         FindIterable<Document> iter = manager.doc.find();
         iter.forEach(new Block<Document>() {
             @Override
             public void apply(Document document) {
-                String newStr = "Story " + document.get(manager.STORY_NUM, String.class) + "\n" + //
-                        document.get(manager.STORY_POINT) + " story point";
-                String str = new String(newStr);
-                storyList.add(str);
+                Story newStr = new Story(document.get(manager.STORY_NUM, Integer.class), document.get(manager.STORY_POINT, Integer.class));
+                storyList.add(newStr);
             }
         });
         return storyList;
     }
+
 }
