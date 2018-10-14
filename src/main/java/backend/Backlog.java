@@ -27,7 +27,21 @@ public class Backlog {
 
 
     public List<Story> getCheckBoxOutput() {
-        this.storyDeck = StoryManager.GetStoriesFromMongoDB();
+        //added  for purposes of getting GUI working.
+        try
+        {
+            throw new Exception();
+            //this.storyDeck = StoryManager.GetStoriesFromMongoDB();
+        }
+        catch(Exception e)
+        {
+            this.storyDeck = new ArrayList<>();
+            this.storyDeck.add(new Story(1,1));
+            this.storyDeck.add(new Story(2,2));
+            this.storyDeck.add(new Story(3,3));
+            this.storyDeck.add(new Story(4,5));
+            this.storyDeck.add(new Story(6,8));
+        }
         return this.storyDeck;
     }
 
