@@ -64,12 +64,8 @@ public class TeamClass {
     points the team has accrued to spend against their backlog
     on any given round */
 
-    public void increasePointsToSpend(int amt){
+    public void changePointsToSpend(int amt){
         pointsToSpend += amt;
-    }
-
-    public void decreasePointsToSpend(int amt){
-        pointsToSpend -= amt;
     }
 
     //returns an ArrayList of GirdPanes for to display in Backlog UI Object

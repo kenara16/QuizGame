@@ -49,11 +49,8 @@ public class CardScene implements IGameScene {
         for (int i=0; i<4;i++){
             //Will replace this with logic to pull cards from database
 
-            Text dummyTitle= new Text("Test Title");
-            Text dummyText= new Text("This is an example of card text");
-
-            CardClass newCard= new CardClass(dummyTitle,dummyText);
-            cardChoices.getChildren().add(newCard.getCard());
+            CardClass newCard= new CardClass(GameManager.getCard());
+            cardChoices.getChildren().add(newCard.getCardUI());
         }
 
 

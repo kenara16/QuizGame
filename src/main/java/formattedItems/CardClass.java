@@ -1,5 +1,6 @@
 package formattedItems;
 
+import backend.Card;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.CheckBox;
@@ -10,9 +11,10 @@ import javafx.scene.text.Text;
 
 public class CardClass {
 
-    private VBox card = new VBox();
+    private VBox cardBox = new VBox();
     private Text title = new Text();
     private Text content = new Text();
+    private Card card;
     private final CheckBox checkBox = new CheckBox("Select to play card");
     private final Text selected = new Text("Not selected");
     private String borderStyle = new String("-fx-padding: 10;" +
@@ -22,15 +24,16 @@ public class CardClass {
                                     "-fx-border-radius: 10;" +
                                     "-fx-border-color: black;");
 
-    public CardClass(Text title, Text content){
-        formatTitle(title);
-        formatContent(content);
+    public CardClass(Card card){
+        this.card = card;
+        formatTitle( new Text(card.getTitle()));
+        formatContent(new Text(card.getText()));
         addCheckBoxListener(checkBox);
-        card.getChildren().add(this.title);
-        card.getChildren().add(this.content);
-        card.getChildren().add(this.checkBox);
-        card.getChildren().add(this.selected);
-        card.setStyle(borderStyle);
+        cardBox.getChildren().add(this.title);
+        cardBox.getChildren().add(this.content);
+        cardBox.getChildren().add(this.checkBox);
+        cardBox.getChildren().add(this.selected);
+        cardBox.setStyle(borderStyle);
     }
 
     private void formatTitle(Text title){
@@ -55,8 +58,8 @@ public class CardClass {
         });
     }
 
-    public VBox getCard(){
-        return this.card;
+    public VBox getCardUI(){
+        return this.cardBox;
     }
 }
 
