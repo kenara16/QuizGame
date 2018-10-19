@@ -78,4 +78,8 @@ public class Story {
     public void SetCheckBoxVisible(boolean isVisible) {
         this.cBox.setVisible(isVisible);
     }
+
+    public void SetCheckBoxSelect(boolean isSelected) {
+        this.cBox.setSelected(isSelected);
+    }
 }

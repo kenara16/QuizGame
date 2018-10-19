@@ -1,6 +1,7 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Backlog {
@@ -43,6 +44,23 @@ public class Backlog {
             this.storyDeck.add(new Story(6,8));
         }
         return this.storyDeck;
+    }
+
+    public int GetTotalPointsOfSelectedStories() {
+        int sum = 0;
+        for(Story story : this.storyDeck) {
+            sum += story.GetPoint();
+        }
+        return sum;
+    }
+
+    public void RemoveSelectedStories() {
+        Iterator<Story> iter = this.storyDeck.iterator();
+
+        while(iter.hasNext()) {
+            Story story = iter.next();
+            this.storyDeck.remove(story);
+        }
     }
 
 }
