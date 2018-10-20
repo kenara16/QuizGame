@@ -4,7 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import main.GameManager;
 
 public class RevealScene implements IGameScene {
     public String title = "Initial Scene";
@@ -18,11 +21,15 @@ public class RevealScene implements IGameScene {
     }
     public Scene getScene()
     {
+        BorderPane border = new BorderPane();
+
+
 
         Button button1 = new Button("Reveal Scene");
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                GameManager.getGameManager().clearCards();
                 SceneManager.nextScene();
             }
         });

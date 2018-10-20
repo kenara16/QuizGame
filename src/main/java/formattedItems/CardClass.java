@@ -61,5 +61,12 @@ public class CardClass {
     public VBox getCardUI(){
         return this.cardBox;
     }
+
+    public boolean getCheckboxSelection(){
+        return checkBox.isSelected();
+    }
+    public void setInvisible(){
+        this.checkBox.setVisible(false);
+    }
 }
 

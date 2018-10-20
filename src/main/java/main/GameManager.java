@@ -10,10 +10,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import scenes.SceneManager;
@@ -60,17 +57,25 @@ public class GameManager {
         return gameManager;
     }
 
+    public void clearCards(){
+        teamOne.clearCardsPlayed();
+        teamTwo.clearCardsPlayed();
+    }
+
     public void start(Stage theStage) {
         this.stage = theStage;
         this.stage.setTitle("Initial Screen");
-        Button button1 = new Button("Initial Screen");
+        Button button1 = new Button("Click to Begin Game");
         button1.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 next();
             }
         });
         HBox hbox = new HBox(button1);
-        Scene scene = new Scene(hbox, 400, 400);
+        BorderPane border = new BorderPane();
+        border.setCenter(hbox);
+        hbox.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(border, 400, 400);
         this.stage.setScene(scene);
         this.stage.show();
     }

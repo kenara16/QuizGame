@@ -2,9 +2,11 @@ package scenes;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 public class InitialScene implements IGameScene {
     public String title = "Initial Scene";

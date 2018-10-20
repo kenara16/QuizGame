@@ -1,6 +1,9 @@
 package backend;
 
+import formattedItems.CardClass;
 import javafx.scene.*;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +16,8 @@ public class TeamClass {
     private Backlog backlog = new Backlog();
     private Integer totalPoints;
     private Integer pointsToSpend;
+    //this holds the cards that have been played by the team for the given round
+    private ArrayList<CardClass> playedCards = new ArrayList<CardClass>();
 
     public TeamClass()
     {
@@ -78,6 +83,14 @@ public class TeamClass {
 
         return grids;
     }
+
+    public ArrayList<CardClass> getCardsPlayed(){
+        return this.playedCards;
+    }
+    public void setPlayedCards(ArrayList<CardClass> newList){
+        this.playedCards = newList;
+    }
+    public void clearCardsPlayed(){this.playedCards.clear();}
 
     public Integer getTotalPoints() {
         return totalPoints;
