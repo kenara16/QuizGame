@@ -13,6 +13,7 @@ public class TeamClass {
     private Backlog backlog = new Backlog();
     private Integer totalPoints;
     private Integer pointsToSpend;
+    private String answer;
 
     public TeamClass()
     {
@@ -93,4 +94,10 @@ public class TeamClass {
         this.pointsToSpend = pointsToSpend;
     }
 
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+    public String getAnswer(){
+        return answer;
+    }
 }

@@ -35,8 +35,6 @@ public class CardScene implements IGameScene {
     {
         BorderPane layout = new BorderPane();
         VBox cardChoices= new VBox(20);
-        //VBox team1Backlog= new BacklogDisplay(new TeamClass()).getHBox();
-        //VBox team2Backlog= new BacklogDisplay(new TeamClass()).getHBox();
         HBox confirmCards = new HBox(20);
 
         //Buttons to confirm card selection and to move to next card select screen.
@@ -48,7 +46,6 @@ public class CardScene implements IGameScene {
         //Game logic to generate cards from database of cards and references card class for formatting
         for (int i=0; i<4;i++){
             //Will replace this with logic to pull cards from database
-
             CardClass newCard= new CardClass(GameManager.getCard());
             cardChoices.getChildren().add(newCard.getCardUI());
         }

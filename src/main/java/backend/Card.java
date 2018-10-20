@@ -29,6 +29,11 @@ public class Card {
     {
         return this.text;
     }
+
+    public Question getQuestion(){
+        return question;
+    }
+
     public void play()
     {
         this.seen = true;
