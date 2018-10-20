@@ -31,8 +31,8 @@ public class Backlog {
         //added  for purposes of getting GUI working.
         try
         {
-            throw new Exception();
-            //this.storyDeck = StoryManager.GetStoriesFromMongoDB();
+            //throw new Exception();
+            this.storyDeck = StoryManager.GetStoriesFromMongoDB();
         }
         catch(Exception e)
         {
