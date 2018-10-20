@@ -2,18 +2,23 @@ package backend;
 
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class StoryManager {
 
     private static StoryManager pInstance;
     private MongoClient mongoClient;
-    private MongoCollection<Document> doc;
+    private MongoClientURI uri;
+    private MongoDatabase db;
+    private MongoCollection<Document> collections;
     private final String STORY_NUM = "Number";
     private final String STORY_POINT = "Point";
 
@@ -28,12 +33,6 @@ public class StoryManager {
         return StoryManager.pInstance;
     }
 
-    public static void InitializeManager() {
-        if(StoryManager.pInstance == null) {
-            StoryManager.pInstance = new StoryManager();
-        }
-    }
-
 
     public static List<Story> GetStoriesFromMongoDB() {
         final StoryManager manager = StoryManager.GetManagerInstance();
@@ -41,24 +40,25 @@ public class StoryManager {
 
         // Connect to Database
         try {
-            manager.mongoClient = new MongoClient("127.0.0.1", 27017);
-            System.out.println("Connected to MongoDB");
-            manager.doc = manager.mongoClient.getDatabase("Stories").getCollection("StoryDeck");
-            System.out.println("Received Dataset from MongoDB");
+            manager.uri = new MongoClientURI("mongodb+srv://Youngjo:e4T5U5q2K6yxutsD@cluster0-4fgpe.gcp.mongodb.net/");
+            manager.mongoClient = new MongoClient(manager.uri);
+            manager.db = manager.mongoClient.getDatabase("Stories");
+            manager.collections = manager.db.getCollection("StoryDeck");
         } catch (Exception e) {
             System.out.println("Error: " + e.getLocalizedMessage());
         }
 
         // Read the data and attach it to list.
-        final List<Story> storyList = new ArrayList<Story>();
-        FindIterable<Document> iter = manager.doc.find();
-        iter.forEach(new Block<Document>() {
-            @Override
-            public void apply(Document document) {
-                Story newStr = new Story(document.get(manager.STORY_NUM, Integer.class), document.get(manager.STORY_POINT, Integer.class));
-                storyList.add(newStr);
-            }
-        });
+        FindIterable<Document> iterDoc = manager.collections.find();
+        Iterator<Document> iter = iterDoc.iterator();
+
+        List<Story> storyList = new ArrayList<>();
+        while(iter.hasNext()) {
+            Document doc = iter.next();
+            int num = (int)doc.get(manager.STORY_NUM);
+            int pnt = (int)doc.get(manager.STORY_POINT);
+            storyList.add(new Story(num, pnt));
+        }
         return storyList;
     }
 
