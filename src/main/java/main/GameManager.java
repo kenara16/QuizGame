@@ -41,6 +41,8 @@ public class GameManager {
     {
         return getGameManager().currentTeam;
     }
+    public TeamClass getTeamOne(){return this.teamOne;}
+    public TeamClass getTeamTwo(){return this.teamTwo;}
     public static String getTeamNumber()
     {
         if (currentlyFirstTeam())

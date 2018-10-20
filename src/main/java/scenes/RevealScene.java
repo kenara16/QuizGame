@@ -1,7 +1,9 @@
 package scenes;
 
+import formattedItems.RevealClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -23,7 +25,8 @@ public class RevealScene implements IGameScene {
     {
         BorderPane border = new BorderPane();
 
-
+        RevealClass revealOne = new RevealClass(GameManager.getGameManager().getTeamOne());
+        RevealClass revealTwo = new RevealClass(GameManager.getGameManager().getTeamTwo());
 
         Button button1 = new Button("Reveal Scene");
         button1.setOnAction(new EventHandler<ActionEvent>() {
@@ -34,7 +37,13 @@ public class RevealScene implements IGameScene {
             }
         });
         HBox hbox = new HBox(button1);
-        Scene scene = new Scene(hbox, 400, 400);
+        hbox.setAlignment(Pos.CENTER);
+
+        border.setLeft(revealOne.getRevealUI());
+        border.setRight(revealTwo.getRevealUI());
+        border.setBottom(hbox);
+
+        Scene scene = new Scene(border, 400, 400);
         return scene;
     }
 
