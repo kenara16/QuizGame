@@ -18,6 +18,7 @@ public class TeamClass {
     private Integer pointsToSpend;
     //this holds the cards that have been played by the team for the given round
     private ArrayList<CardClass> playedCards = new ArrayList<CardClass>();
+    private String answer;
 
     public TeamClass()
     {
@@ -106,4 +107,10 @@ public class TeamClass {
         this.pointsToSpend = pointsToSpend;
     }
 
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+    public String getAnswer(){
+        return answer;
+    }
 }

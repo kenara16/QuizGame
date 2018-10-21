@@ -20,12 +20,14 @@ import java.util.Collections;
 
 public class GameManager {
     Stage stage;
-    TeamClass teamOne;
-    TeamClass teamTwo;
+    static TeamClass teamOne;
+    static TeamClass teamTwo;
     TeamClass currentTeam;
     private static GameManager gameManager = new GameManager();
     ArrayList<Card> unseenCards;
-    ArrayList<Card> seenCards;
+    static ArrayList<Card> seenCards;
+    static String correctAnswer;
+    static Question quizQuestion;
 
     private GameManager()
     {
@@ -102,6 +104,11 @@ public class GameManager {
     }
     private void createCards()
     {
+
+        ArrayList<String> answers = new ArrayList<String>();
+        answers.add("a");
+        answers.add("b");
+        answers.add("c");
         unseenCards = new ArrayList<Card>();
         seenCards = new ArrayList<Card>();
         try
@@ -114,7 +121,7 @@ public class GameManager {
             //default behavior until we have way to load in cards
             for (int i = 0; i <100; i++)
             {
-                unseenCards.add(new Card("Card " + i,5,new Question()));
+                unseenCards.add(new Card("Card " + i,5,new Question("Question Example?"+ i, answers,"a")));
             }
 
         }
@@ -127,6 +134,20 @@ public class GameManager {
         getGameManager().seenCards.add(chosenCard);
         return chosenCard;
     }
+
+    static public Question getQuestion(){
+        if(getCurrentTeam()==teamOne) {
+            Collections.shuffle(getGameManager().seenCards);
+            quizQuestion = seenCards.get(0).getQuestion();
+        }
+        return quizQuestion;
+    }
+
+    static public void setCorrectAnswer(String ca){
+        correctAnswer=ca;
+    }
+
+
     static public void addPoints(int points)
     {
         if (points < 0)
@@ -144,5 +165,12 @@ public class GameManager {
         {
             getGameManager().currentTeam.changePointsToSpend(points);
         }
+    }
+
+    static public TeamClass getTeamOne() {
+        return teamOne;
+    }
+    static public TeamClass getTeamTwo(){
+        return teamTwo;
     }
 }
