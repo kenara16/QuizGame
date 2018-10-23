@@ -43,8 +43,6 @@ public class GameManager {
     {
         return getGameManager().currentTeam;
     }
-    public TeamClass getTeamOne(){return this.teamOne;}
-    public TeamClass getTeamTwo(){return this.teamTwo;}
     public static String getTeamNumber()
     {
         if (currentlyFirstTeam())
@@ -61,9 +59,14 @@ public class GameManager {
         return gameManager;
     }
 
-    public void clearCards(){
+    public void clearPlayedCards(){
         teamOne.clearCardsPlayed();
         teamTwo.clearCardsPlayed();
+    }
+
+    public void clearUnplayedCards(){
+        teamOne.clearCardsNotPlayed();
+        teamTwo.clearCardsNotPlayed();
     }
 
     public void start(Stage theStage) {

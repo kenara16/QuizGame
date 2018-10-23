@@ -32,7 +32,7 @@ public class RevealScene implements IGameScene {
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                GameManager.getGameManager().clearCards();
+                GameManager.getGameManager().clearPlayedCards();
                 SceneManager.nextScene();
             }
         });

@@ -1,5 +1,6 @@
 package scenes;
 
+import backend.Card;
 import backend.TeamClass;
 import formattedItems.CardClass;
 import javafx.event.ActionEvent;
@@ -20,6 +21,8 @@ public class CardScene implements IGameScene {
     public String title = "Dealing Cards to Team " + GameManager.getTeamNumber();
     //Collection of cards selected in current scene to send to current TeamClass
     ArrayList<CardClass> cardsSelected = new ArrayList<CardClass>();
+    //Collection of unplayed cards that were not selected for later use
+    ArrayList<CardClass> cardsNotSelected = new ArrayList<CardClass>();
     //temporary ArrayList of cards added to demonstrate that reveal card screen is working, can replace when introducing DB connection
     ArrayList<CardClass> cardsInScene = new ArrayList<CardClass>();
     public IGameScene getNext()
@@ -41,6 +44,8 @@ public class CardScene implements IGameScene {
         for (CardClass card : cardsInScene){
             if (card.getCheckboxSelection()){
                 cardsSelected.add(card);
+            } else {
+                cardsNotSelected.add(card);
             }
         }
     }
@@ -77,6 +82,7 @@ public class CardScene implements IGameScene {
             public void handle(ActionEvent event) {
                 getCards(cardsInScene);
                 GameManager.getCurrentTeam().setPlayedCards(cardsSelected);
+                GameManager.getCurrentTeam().setNotPlayedCards(cardsNotSelected);
                 SceneManager.nextScene();
             }
         });

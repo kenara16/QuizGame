@@ -18,6 +18,7 @@ public class TeamClass {
     private Integer pointsToSpend;
     //this holds the cards that have been played by the team for the given round
     private ArrayList<CardClass> playedCards = new ArrayList<CardClass>();
+    private ArrayList<CardClass> unplayedCards = new ArrayList<CardClass>();
     private String answer;
 
     public TeamClass()
@@ -92,6 +93,14 @@ public class TeamClass {
         this.playedCards = newList;
     }
     public void clearCardsPlayed(){this.playedCards.clear();}
+
+    public ArrayList<CardClass> getCardsNotPlayed(){
+        return this.unplayedCards;
+    }
+    public void setNotPlayedCards(ArrayList<CardClass> newList){
+        this.unplayedCards = newList;
+    }
+    public void clearCardsNotPlayed(){this.unplayedCards.clear();}
 
     public Integer getTotalPoints() {
         return totalPoints;
