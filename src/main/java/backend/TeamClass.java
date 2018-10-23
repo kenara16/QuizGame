@@ -21,19 +21,23 @@ public class TeamClass {
     private ArrayList<CardClass> unplayedCards = new ArrayList<CardClass>();
     private String answer;
 
+    /*
     public TeamClass()
     {
         //points placeholders for purpose of getting GUI working
         totalPoints = 100;
         pointsToSpend=25;
     };
+    */
 
     public TeamClass(Backlog back){
         this.backlog = back;
-        totalPoints = determineTotalPoints(this.backlog);
+        //totalPoints = determineTotalPoints(this.backlog);
+        totalPoints = this.backlog.GetTotalPointsOfSelectedStories();
         this.pointsToSpend = 0;
     }
 
+    /*
     //determines how many total points the team must spend to win based off backlog
     private int determineTotalPoints(Backlog back){
         int totalPoints = 0;
@@ -44,6 +48,7 @@ public class TeamClass {
 
         return totalPoints;
     }
+    */
 
     //This returns a teams total points converted into a Text node
     public Text returnTextPoints(){

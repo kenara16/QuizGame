@@ -1,4 +1,5 @@
 package main;
+import backend.Backlog;
 import backend.Question;
 import backend.TeamClass;
 import backend.Card;
@@ -31,8 +32,8 @@ public class GameManager {
 
     private GameManager()
     {
-        teamOne = new TeamClass();
-        teamTwo = new TeamClass();
+        teamOne = new TeamClass(new Backlog());
+        teamTwo = new TeamClass(new Backlog());
         createCards();
     }
     public static boolean currentlyFirstTeam()
