@@ -28,27 +28,27 @@ public class Main extends Application {
 
 // This code is for testing DB part.
 //        List<Card> cards;
-//        cards = CardQuizManager.Get4Cards();
+//        cards = CardQuizManager.Draw4Cards();
 //        for(Card card : cards) {
 //            System.out.println(card);
 //        }
 //
-//        cards = CardQuizManager.Get4Cards();
+//        cards = CardQuizManager.Draw4Cards();
 //        for(Card card : cards) {
 //            System.out.println(card);
 //        }
 //
-//        cards = CardQuizManager.Get4Cards();
+//        cards = CardQuizManager.Draw4Cards();
 //        for(Card card : cards) {
 //            System.out.println(card);
 //        }
 //
-//        cards = CardQuizManager.Get4Cards();
+//        cards = CardQuizManager.Draw4Cards();
 //        for(Card card : cards) {
 //            System.out.println(card);
 //        }
 //
-//        cards = CardQuizManager.Get4Cards();
+//        cards = CardQuizManager.Draw4Cards();
 //        for(Card card : cards) {
 //            System.out.println(card);
 //        }

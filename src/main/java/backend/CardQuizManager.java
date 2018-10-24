@@ -19,7 +19,7 @@ public class CardQuizManager {
         return CardQuizManager.privInstance;
     }
 
-    public static List<Card> Get4Cards() {
+    public static List<Card> Draw4Cards() {
         CardQuizManager pMan = CardQuizManager.GetManager();
         assert (pMan != null);
 
