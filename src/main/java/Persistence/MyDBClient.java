@@ -47,4 +47,5 @@ public class MyDBClient {
         MyDBClient myDB = MyDBClient.GetMyDBClient();
         return myDB.mongoClient.getDatabase("Stories");
     }
+
 }

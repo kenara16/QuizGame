@@ -1,6 +1,8 @@
 package main;
 
+import Persistence.DBConnectionManager;
 import backend.Backlog;
+import backend.Card;
 import backend.Story;
 import backend.TeamClass;
 import formattedItems.BacklogDisplay;
@@ -24,7 +26,26 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        DBConnectionManager.PleaseDontTouchThisMethod();
+
+
+// This code is for testing DB part.
+//        List<Card> cards = new ArrayList<>();
+//        System.out.println(DBConnectionManager.Get4CardAnd4Quiz(cards));
+//
+//        cards = new ArrayList<>();
+//        System.out.println(DBConnectionManager.Get4CardAnd4Quiz(cards));
+//
+//        cards = new ArrayList<>();
+//        System.out.println(DBConnectionManager.Get4CardAnd4Quiz(cards));
+//
+//        cards = new ArrayList<>();
+//        System.out.println(DBConnectionManager.Get4CardAnd4Quiz(cards));
+//
+//        cards = new ArrayList<>();
+//        System.out.println(DBConnectionManager.Get4CardAnd4Quiz(cards));
+
         launch(args);
-	//test
+
     }
 }

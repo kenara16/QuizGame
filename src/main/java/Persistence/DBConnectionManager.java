@@ -1,24 +1,44 @@
 package Persistence;
 
+import backend.Card;
+import backend.Question;
 import backend.Story;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import formattedItems.CardClass;
+import formattedItems.QuizClass;
 import org.bson.Document;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import static com.mongodb.client.model.Filters.eq;
 
 public class DBConnectionManager {
 
     private static final String STORY_NUM = "Number";
     private static final String STORY_POINT = "Point";
+    private static final String ID = "ID";
+    private static final String IS_REVEALED = "IsRevealed";
+    private static final String CONTEXT = "Context";
+    private static final String QUESTION = "Question";
+    private static final String ANSWER1 = "Ans1";
+    private static final String ANSWER2 = "Ans2";
+    private static final String ANSWER3 = "Ans3";
+    private static final String ANSWER4 = "Ans4";
+    private static final String STORY_DECK = "StoryDeck";
+    private static final String CARD_AND_QUIZ = "CardAndQuiz";
+    private static final String TITLE = "Title";
 
     public static List<Story> GetStoryCollection() {
         MyDBClient.ConnectToDB();
         MongoDatabase storyDB = MyDBClient.GetMongoStoryDatabase();
-        MongoCollection<Document> collection = storyDB.getCollection("StoryDeck");
+        MongoCollection<Document> collection = storyDB.getCollection(STORY_DECK);
 
         FindIterable<Document> iterDoc = collection.find();
         Iterator<Document> iter = iterDoc.iterator();
@@ -36,7 +56,53 @@ public class DBConnectionManager {
     }
 
 
-    private static void PleaseDontTouchThisMethod() {
+
+
+    // Please feed me with empty Lists which is not instantiated.
+    // I will return ArrayList for each data types.
+    // If I return true, successfully I provided you 4 cards.
+    // If I return false, unfortunately it is the last cards set or I have nothing to give you anymore.
+
+    public static boolean Get4CardAnd4Quiz(List<Card> cards) {
+        //cards = new ArrayList<Card>();
+
+        MyDBClient.ConnectToDB();
+        MongoDatabase storyDB = MyDBClient.GetMongoStoryDatabase();
+        MongoCollection<Document> collection = storyDB.getCollection(CARD_AND_QUIZ);
+
+        FindIterable<Document> iterDoc = collection.find(eq(IS_REVEALED, false));
+        Iterator<Document> iter = iterDoc.iterator();
+
+        int count = 0;
+        while(iter.hasNext() && count < 4) {
+            Document doc = iter.next();
+
+            // Create Question objects.
+            List<String> options = new ArrayList<>();
+            String question = (String) doc.get(QUESTION);
+            options.add((String) doc.get(ANSWER1));
+            options.add((String) doc.get(ANSWER2));
+            options.add((String) doc.get(ANSWER3));
+            options.add((String) doc.get(ANSWER4));
+            Question q = new Question(question, options);
+
+            Card card = new Card((String)doc.get(TITLE), (String)doc.get(CONTEXT), (Integer)doc.get(ID), q);
+            cards.add(card);
+
+            collection.updateOne(eq(ID, (Integer)doc.get(ID)), new Document("$set", new Document(IS_REVEALED, true)));
+            ++count;
+        }
+
+
+        if(!iter.hasNext()) {
+            MyDBClient.CloseConnectioin();
+            return false;
+        }
+        MyDBClient.CloseConnectioin();
+        return true;
+    }
+
+    public static void PleaseDontTouchThisMethod() {
         MyDBClient.ConnectToDB();
         MongoDatabase storyDB = MyDBClient.GetMongoStoryDatabase();
         try {
@@ -220,6 +286,7 @@ public class DBConnectionManager {
                 .append("Ans3", "How many stories you can add each sprint")
                 .append("Ans4", "The amount of stories a team has completed the previous sprint, or averaged across the last couple of sprints"));
 
+        Collections.shuffle(list);
         collection.insertMany(list);
         MyDBClient.CloseConnectioin();
 
