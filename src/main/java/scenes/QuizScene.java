@@ -80,7 +80,7 @@ public class QuizScene implements IGameScene {
 
 
 
-        Scene scene = new Scene(layout, 600, 600);
+        Scene scene = new Scene(layout, 800, 800);
         return scene;
     }
 

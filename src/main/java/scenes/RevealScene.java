@@ -43,7 +43,7 @@ public class RevealScene implements IGameScene {
         border.setRight(revealTwo.getRevealUI());
         border.setBottom(hbox);
 
-        Scene scene = new Scene(border, 400, 400);
+        Scene scene = new Scene(border, 800, 800);
         return scene;
     }
 

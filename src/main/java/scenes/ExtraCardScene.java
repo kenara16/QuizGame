@@ -51,7 +51,7 @@ public class ExtraCardScene implements IGameScene {
         }
 
         layout.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(layout, 400, 400);
+        Scene scene = new Scene(layout, 800, 800);
         return scene;
     }
 

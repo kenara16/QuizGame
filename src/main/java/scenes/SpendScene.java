@@ -51,7 +51,7 @@ public class SpendScene implements IGameScene {
         {
             layout.setRight(teamBacklog);
         }
-        Scene scene = new Scene(layout, 400, 400);
+        Scene scene = new Scene(layout, 800, 800);
         return scene;
     }
 

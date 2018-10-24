@@ -15,6 +15,7 @@ import javafx.scene.text.Text;
 import main.GameManager;
 import formattedItems.BacklogDisplay;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CardScene implements IGameScene {
@@ -54,6 +55,7 @@ public class CardScene implements IGameScene {
         BorderPane layout = new BorderPane();
         VBox cardChoices= new VBox(20);
         HBox confirmCards = new HBox(20);
+        Text msg = new Text();
 
         //Buttons to confirm card selection and to move to next card select screen.
         //HBox will hold this button(s).
@@ -75,8 +77,7 @@ public class CardScene implements IGameScene {
         //layout.setRight(team2Backlog); //For Team 2 Backlog
         layout.setBottom(confirmCards);
 
-
-        Scene scene = new Scene(layout, 600, 600);
+        Scene scene = new Scene(layout, 800, 800);
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -88,6 +89,5 @@ public class CardScene implements IGameScene {
         });
         return scene;
     }
-
 }
 

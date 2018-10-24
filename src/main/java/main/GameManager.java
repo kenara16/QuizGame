@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import scenes.InitialScene;
 import scenes.SceneManager;
 
 import java.util.ArrayList;
@@ -72,19 +73,8 @@ public class GameManager {
 
     public void start(Stage theStage) {
         this.stage = theStage;
-        this.stage.setTitle("Initial Screen");
-        Button button1 = new Button("Click to Begin Game");
-        button1.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                next();
-            }
-        });
-        HBox hbox = new HBox(button1);
-        BorderPane border = new BorderPane();
-        border.setCenter(hbox);
-        hbox.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(border, 400, 400);
-        this.stage.setScene(scene);
+        Scene initScene = new InitialScene().getScene();
+        this.stage.setScene(initScene);
         this.stage.show();
     }
     public static void incrementTeam()
