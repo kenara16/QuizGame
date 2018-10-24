@@ -1,30 +1,25 @@
 package backend;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class Question
-{
-    private String question;
-    private ArrayList<String> answers;
-    private String correctAnswer;
+public class Question {
 
+    String question;
+    List<String> options; // first one is answer;
+    // String answer;
 
-    public Question(String q, ArrayList<String>a, String ca){
-
-        question=q;
-        answers=a;
-        correctAnswer=ca;
+    @Override
+    public String toString() {
+        return "Question{" +
+                "question='" + question + '\'' +
+                ", options=" + options +
+                '}';
     }
 
-    public String getQuestion(){
-        return question;
-    }
+    public Question() {}
 
-    public  ArrayList<String> getAnswers(){
-        return answers;
-    }
-
-    public String getCorrectAnswer(){
-        return  correctAnswer;
+    public Question(String question, List<String> options) {
+        this.question = question;
+        this.options = options;
     }
 }
