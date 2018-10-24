@@ -1,10 +1,7 @@
 package main;
 
 import Persistence.DBConnectionManager;
-import backend.Backlog;
-import backend.Card;
-import backend.Story;
-import backend.TeamClass;
+import backend.*;
 import formattedItems.BacklogDisplay;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -30,20 +27,31 @@ public class Main extends Application {
 
 
 // This code is for testing DB part.
-//        List<Card> cards = new ArrayList<>();
-//        System.out.println(DBConnectionManager.Get4CardAnd4Quiz(cards));
+//        List<Card> cards;
+//        cards = CardQuizManager.Get4Cards();
+//        for(Card card : cards) {
+//            System.out.println(card);
+//        }
 //
-//        cards = new ArrayList<>();
-//        System.out.println(DBConnectionManager.Get4CardAnd4Quiz(cards));
+//        cards = CardQuizManager.Get4Cards();
+//        for(Card card : cards) {
+//            System.out.println(card);
+//        }
 //
-//        cards = new ArrayList<>();
-//        System.out.println(DBConnectionManager.Get4CardAnd4Quiz(cards));
+//        cards = CardQuizManager.Get4Cards();
+//        for(Card card : cards) {
+//            System.out.println(card);
+//        }
 //
-//        cards = new ArrayList<>();
-//        System.out.println(DBConnectionManager.Get4CardAnd4Quiz(cards));
+//        cards = CardQuizManager.Get4Cards();
+//        for(Card card : cards) {
+//            System.out.println(card);
+//        }
 //
-//        cards = new ArrayList<>();
-//        System.out.println(DBConnectionManager.Get4CardAnd4Quiz(cards));
+//        cards = CardQuizManager.Get4Cards();
+//        for(Card card : cards) {
+//            System.out.println(card);
+//        }
 
         launch(args);
 

@@ -3,13 +3,9 @@ package Persistence;
 import backend.Card;
 import backend.Question;
 import backend.Story;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCursor;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import formattedItems.CardClass;
-import formattedItems.QuizClass;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -64,8 +60,6 @@ public class DBConnectionManager {
     // If I return false, unfortunately it is the last cards set or I have nothing to give you anymore.
 
     public static boolean Get4CardAnd4Quiz(List<Card> cards) {
-        //cards = new ArrayList<Card>();
-
         MyDBClient.ConnectToDB();
         MongoDatabase storyDB = MyDBClient.GetMongoStoryDatabase();
         MongoCollection<Document> collection = storyDB.getCollection(CARD_AND_QUIZ);
@@ -135,8 +129,6 @@ public class DBConnectionManager {
                 .append("Ans2", "Burn-down chart represent how much work has been completed.")
                 .append("Ans3", "Burn-down chart represent the remaining uncertainty.")
                 .append("Ans4", "Burn-down char represent how much uncertainty has been revealed."));
-
-
 
         list.add(new Document("ID", 3)
                 .append("Title", "Scrum")
