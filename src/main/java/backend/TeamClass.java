@@ -16,6 +16,8 @@ public class TeamClass {
     private Backlog backlog = new Backlog();
     private Integer totalPoints;
     private Integer pointsToSpend;
+    //Cards taken from database
+    private ArrayList<CardClass> cardsInScene = new ArrayList<CardClass>();
     //this holds the cards that have been played by the team for the given round
     private ArrayList<CardClass> playedCards = new ArrayList<CardClass>();
     private ArrayList<CardClass> unplayedCards = new ArrayList<CardClass>();
@@ -35,6 +37,20 @@ public class TeamClass {
         //totalPoints = determineTotalPoints(this.backlog);
         totalPoints = this.backlog.GetTotalPointsOfSelectedStories();
         this.pointsToSpend = 0;
+
+    }
+
+    public ArrayList<CardClass> getCardsFromDB(){
+        //clear out the list of cards for the current round if any carried over from last round
+        if (cardsInScene.size() > 0){
+            cardsInScene.clear();
+        }
+        //return the ArrayList of the cards in the current round from a List of 4 drawn cards
+        List<Card> drawnCards = CardQuizManager.Draw4Cards();
+        for (Card card : drawnCards){
+            cardsInScene.add(new CardClass(card));
+        }
+        return cardsInScene;
     }
 
     /*

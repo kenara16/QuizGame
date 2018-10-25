@@ -26,14 +26,11 @@ public class CardScene implements IGameScene {
     ArrayList<CardClass> cardsSelected = new ArrayList<CardClass>();
     //Collection of unplayed cards that were not selected for later use
     ArrayList<CardClass> cardsNotSelected = new ArrayList<CardClass>();
-    //temporary ArrayList of cards added to demonstrate that reveal card screen is working, can replace when introducing DB connection
-    ArrayList<CardClass> cardsInScene = new ArrayList<CardClass>();
+    //ArrayList of overall cards in current scene
+    ArrayList<CardClass> cardsInScene;
     public CardScene(){
-        //pull 4 new cards from database when new cardclass is called, add them into the arraylist that marks them as part of the scene
-        List<Card> drawnCards = CardQuizManager.Draw4Cards();
-        for (Card card : drawnCards){
-            cardsInScene.add(new CardClass(card));
-        }
+        //Get the cards in the current scene from the current team's getCards method
+        cardsInScene = GameManager.getCurrentTeam().getCardsFromDB();
     }
     public IGameScene getNext()
     {
