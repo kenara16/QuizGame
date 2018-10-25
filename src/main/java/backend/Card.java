@@ -3,17 +3,29 @@ package backend;
 import main.GameManager;
 
 public class Card {
-    String text;
+    String title;
+    String content;
     int points;
     boolean seen = false;
     Question question;
 
-    public Card(String text, int points, Question question)
+    public Card(String title, String content, int points, Question question)
     {
-        this.text = text;
+        this.title = title;
+        this.content = content;
         this.points = points;
         this.question = question;
     }
+
+    public Card(String content, int points, Question question)
+    {
+        this.title = title;
+        this.content = content;
+        this.points = points;
+        this.question = question;
+    }
+
+
     public String getTitle()
     {
         if (this.points <0)
@@ -27,12 +39,27 @@ public class Card {
     }
     public String getText()
     {
-        return this.text;
+        return this.content;
     }
+
+    public Question getQuestion(){
+        return question;
+    }
+
     public void play()
     {
         this.seen = true;
         GameManager.addPoints(this.points);
     }
 
+    @Override
+    public String toString() {
+        return "Card{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", points=" + points +
+                ", seen=" + seen +
+                ", question=" + question +
+                '}';
+    }
 }

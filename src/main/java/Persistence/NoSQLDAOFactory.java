@@ -21,6 +21,5 @@ public class NoSQLDAOFactory extends DAOFactory {
         
         return null;
     }
-    
 
 }

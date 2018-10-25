@@ -1,8 +1,7 @@
 package main;
 
-import backend.Backlog;
-import backend.Story;
-import backend.TeamClass;
+import Persistence.DBConnectionManager;
+import backend.*;
 import formattedItems.BacklogDisplay;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,14 +16,44 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample.fxml"));
 
         GameManager.getGameManager().start(primaryStage);
     }
 
 
     public static void main(String[] args) {
+        DBConnectionManager.PleaseDontTouchThisMethod();
+
+
+// This code is for testing DB part.
+//        List<Card> cards;
+//        cards = CardQuizManager.Draw4Cards();
+//        for(Card card : cards) {
+//            System.out.println(card);
+//        }
+//
+//        cards = CardQuizManager.Draw4Cards();
+//        for(Card card : cards) {
+//            System.out.println(card);
+//        }
+//
+//        cards = CardQuizManager.Draw4Cards();
+//        for(Card card : cards) {
+//            System.out.println(card);
+//        }
+//
+//        cards = CardQuizManager.Draw4Cards();
+//        for(Card card : cards) {
+//            System.out.println(card);
+//        }
+//
+//        cards = CardQuizManager.Draw4Cards();
+//        for(Card card : cards) {
+//            System.out.println(card);
+//        }
+
         launch(args);
-	//test
+
     }
 }

@@ -1,5 +1,7 @@
 package backend;
 
+import Persistence.DBConnectionManager;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,7 +10,9 @@ public class Backlog {
 
     private List<Story> storyDeck;
 
-    public Backlog() {}
+    public Backlog() {
+        storyDeck = DBConnectionManager.GetStoryCollection();
+    }
 
     public int GetNumOfStoriesInDeck() {
         if(this.storyDeck == null) {
@@ -28,6 +32,7 @@ public class Backlog {
 
 
     public List<Story> getCheckBoxOutput() {
+        /*
         //added  for purposes of getting GUI working.
         try
         {
@@ -44,7 +49,10 @@ public class Backlog {
             this.storyDeck.add(new Story(6,8));
         }
         return this.storyDeck;
+        */
+        return this.storyDeck;
     }
+
 
     public int GetTotalPointsOfSelectedStories() {
         int sum = 0;

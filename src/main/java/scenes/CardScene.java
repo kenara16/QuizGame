@@ -1,5 +1,7 @@
 package scenes;
 
+import backend.Card;
+import backend.CardQuizManager;
 import backend.TeamClass;
 import formattedItems.CardClass;
 import javafx.event.ActionEvent;
@@ -14,8 +16,25 @@ import javafx.scene.text.Text;
 import main.GameManager;
 import formattedItems.BacklogDisplay;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 public class CardScene implements IGameScene {
     public String title = "Dealing Cards to Team " + GameManager.getTeamNumber();
+    //Collection of cards selected in current scene to send to current TeamClass
+    ArrayList<CardClass> cardsSelected = new ArrayList<CardClass>();
+    //Collection of unplayed cards that were not selected for later use
+    ArrayList<CardClass> cardsNotSelected = new ArrayList<CardClass>();
+    //temporary ArrayList of cards added to demonstrate that reveal card screen is working, can replace when introducing DB connection
+    ArrayList<CardClass> cardsInScene = new ArrayList<CardClass>();
+    public CardScene(){
+        //pull 4 new cards from database when new cardclass is called, add them into the arraylist that marks them as part of the scene
+        List<Card> drawnCards = CardQuizManager.Draw4Cards();
+        for (Card card : drawnCards){
+            cardsInScene.add(new CardClass(card));
+        }
+    }
     public IGameScene getNext()
     {
         if (GameManager.currentlyFirstTeam())
@@ -31,13 +50,21 @@ public class CardScene implements IGameScene {
     {
         return title;
     }
+    public void getCards(ArrayList<CardClass> cardsInScene){
+        for (CardClass card : cardsInScene){
+            if (card.getCheckboxSelection()){
+                cardsSelected.add(card);
+            } else {
+                cardsNotSelected.add(card);
+            }
+        }
+    }
     public Scene getScene()
     {
         BorderPane layout = new BorderPane();
         VBox cardChoices= new VBox(20);
-        //VBox team1Backlog= new BacklogDisplay(new TeamClass()).getHBox();
-        //VBox team2Backlog= new BacklogDisplay(new TeamClass()).getHBox();
         HBox confirmCards = new HBox(20);
+        Text msg = new Text();
 
         //Buttons to confirm card selection and to move to next card select screen.
         //HBox will hold this button(s).
@@ -45,31 +72,33 @@ public class CardScene implements IGameScene {
         confirmCards.setAlignment(Pos.CENTER);
         confirmCards.getChildren().add(button1);
 
+        /*
         //Game logic to generate cards from database of cards and references card class for formatting
-        for (int i=0; i<4;i++){
+        for (int i=0; i<4;i++) {
             //Will replace this with logic to pull cards from database
 
             CardClass newCard= new CardClass(GameManager.getCard());
             cardChoices.getChildren().add(newCard.getCardUI());
+            cardsInScene.add(newCard);
         }
-
-
+        */
 
         layout.setCenter(cardChoices);
         //layout.setLeft(team1Backlog); //For Team 1 Backlog
         //layout.setRight(team2Backlog); //For Team 2 Backlog
         layout.setBottom(confirmCards);
 
-
-        Scene scene = new Scene(layout, 600, 600);
+        Scene scene = new Scene(layout, 800, 800);
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                getCards(cardsInScene);
+                GameManager.getCurrentTeam().setPlayedCards(cardsSelected);
+                GameManager.getCurrentTeam().setNotPlayedCards(cardsNotSelected);
                 SceneManager.nextScene();
             }
         });
         return scene;
     }
-
 }
 

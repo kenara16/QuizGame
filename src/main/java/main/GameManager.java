@@ -1,4 +1,5 @@
 package main;
+import backend.Backlog;
 import backend.Question;
 import backend.TeamClass;
 import backend.Card;
@@ -10,12 +11,10 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import scenes.InitialScene;
 import scenes.SceneManager;
 
 import java.util.ArrayList;
@@ -23,17 +22,19 @@ import java.util.Collections;
 
 public class GameManager {
     Stage stage;
-    TeamClass teamOne;
-    TeamClass teamTwo;
+    static TeamClass teamOne;
+    static TeamClass teamTwo;
     TeamClass currentTeam;
     private static GameManager gameManager = new GameManager();
     ArrayList<Card> unseenCards;
-    ArrayList<Card> seenCards;
+    static ArrayList<Card> seenCards;
+    static String correctAnswer;
+    static Question quizQuestion;
 
     private GameManager()
     {
-        teamOne = new TeamClass();
-        teamTwo = new TeamClass();
+        teamOne = new TeamClass(new Backlog());
+        teamTwo = new TeamClass(new Backlog());
         createCards();
     }
     public static boolean currentlyFirstTeam()
@@ -60,18 +61,20 @@ public class GameManager {
         return gameManager;
     }
 
+    public void clearPlayedCards(){
+        teamOne.clearCardsPlayed();
+        teamTwo.clearCardsPlayed();
+    }
+
+    public void clearUnplayedCards(){
+        teamOne.clearCardsNotPlayed();
+        teamTwo.clearCardsNotPlayed();
+    }
+
     public void start(Stage theStage) {
         this.stage = theStage;
-        this.stage.setTitle("Initial Screen");
-        Button button1 = new Button("Initial Screen");
-        button1.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                next();
-            }
-        });
-        HBox hbox = new HBox(button1);
-        Scene scene = new Scene(hbox, 400, 400);
-        this.stage.setScene(scene);
+        Scene initScene = new InitialScene().getScene();
+        this.stage.setScene(initScene);
         this.stage.show();
     }
     public static void incrementTeam()
@@ -95,6 +98,11 @@ public class GameManager {
     }
     private void createCards()
     {
+
+        ArrayList<String> answers = new ArrayList<String>();
+        answers.add("a");
+        answers.add("b");
+        answers.add("c");
         unseenCards = new ArrayList<Card>();
         seenCards = new ArrayList<Card>();
         try
@@ -107,7 +115,7 @@ public class GameManager {
             //default behavior until we have way to load in cards
             for (int i = 0; i <100; i++)
             {
-                unseenCards.add(new Card("Card " + i,5,new Question()));
+                unseenCards.add(new Card("Card " + i,5,new Question("Question Example?"+ i, answers,"a")));
             }
 
         }
@@ -120,6 +128,20 @@ public class GameManager {
         getGameManager().seenCards.add(chosenCard);
         return chosenCard;
     }
+
+    static public Question getQuestion(){
+        if(getCurrentTeam()==teamOne) {
+            Collections.shuffle(getGameManager().seenCards);
+            quizQuestion = seenCards.get(0).getQuestion();
+        }
+        return quizQuestion;
+    }
+
+    static public void setCorrectAnswer(String ca){
+        correctAnswer=ca;
+    }
+
+
     static public void addPoints(int points)
     {
         if (points < 0)
@@ -137,5 +159,12 @@ public class GameManager {
         {
             getGameManager().currentTeam.changePointsToSpend(points);
         }
+    }
+
+    static public TeamClass getTeamOne() {
+        return teamOne;
+    }
+    static public TeamClass getTeamTwo(){
+        return teamTwo;
     }
 }
