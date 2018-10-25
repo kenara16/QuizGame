@@ -1,6 +1,7 @@
 package scenes;
 
 import backend.Card;
+import backend.CardQuizManager;
 import backend.TeamClass;
 import formattedItems.CardClass;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import formattedItems.BacklogDisplay;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CardScene implements IGameScene {
     public String title = "Dealing Cards to Team " + GameManager.getTeamNumber();
@@ -26,6 +28,13 @@ public class CardScene implements IGameScene {
     ArrayList<CardClass> cardsNotSelected = new ArrayList<CardClass>();
     //temporary ArrayList of cards added to demonstrate that reveal card screen is working, can replace when introducing DB connection
     ArrayList<CardClass> cardsInScene = new ArrayList<CardClass>();
+    public CardScene(){
+        //pull 4 new cards from database when new cardclass is called, add them into the arraylist that marks them as part of the scene
+        List<Card> drawnCards = CardQuizManager.Draw4Cards();
+        for (Card card : drawnCards){
+            cardsInScene.add(new CardClass(card));
+        }
+    }
     public IGameScene getNext()
     {
         if (GameManager.currentlyFirstTeam())
@@ -63,6 +72,7 @@ public class CardScene implements IGameScene {
         confirmCards.setAlignment(Pos.CENTER);
         confirmCards.getChildren().add(button1);
 
+        /*
         //Game logic to generate cards from database of cards and references card class for formatting
         for (int i=0; i<4;i++) {
             //Will replace this with logic to pull cards from database
@@ -71,6 +81,7 @@ public class CardScene implements IGameScene {
             cardChoices.getChildren().add(newCard.getCardUI());
             cardsInScene.add(newCard);
         }
+        */
 
         layout.setCenter(cardChoices);
         //layout.setLeft(team1Backlog); //For Team 1 Backlog
