@@ -47,6 +47,8 @@ public class QuizScene implements IGameScene {
         BorderPane layout = new BorderPane();
 
         //Sets arraylist and question from quiz info from gamemanager to populate the quizformat VBox
+
+
         ArrayList<String> answers = quizQuestion.getAnswers();
         String question=  quizQuestion.getQuestion();
 

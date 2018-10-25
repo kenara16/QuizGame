@@ -115,7 +115,7 @@ public class GameManager {
             //default behavior until we have way to load in cards
             for (int i = 0; i <100; i++)
             {
-                unseenCards.add(new Card("Card " + i,5,new Question("Question Example?"+ i, answers,"a")));
+                unseenCards.add(new Card("Card " + i,5,new Question("Question Example?"+ i, answers)));
             }
 
         }
