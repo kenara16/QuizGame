@@ -50,6 +50,7 @@ public class Card {
     {
         this.seen = true;
         GameManager.addPoints(this.points);
+        //comment
     }
 
     @Override
