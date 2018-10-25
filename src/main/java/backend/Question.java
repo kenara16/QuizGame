@@ -1,11 +1,11 @@
 package backend;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Question {
 
     String question;
-    List<String> options; // first one is answer;
+    ArrayList<String> options; // first one is answer;
     // String answer;
 
     @Override
@@ -16,10 +16,21 @@ public class Question {
                 '}';
     }
 
-    public Question() {}
-
-    public Question(String question, List<String> options) {
+    public Question(String question, ArrayList<String> options) {
         this.question = question;
         this.options = options;
+    }
+
+    public ArrayList<String> getAnswers()
+    {
+        return this.options;
+    }
+    public String getQuestion()
+    {
+        return this.question;
+    }
+    public String getCorrectAnswer()
+    {
+        return this.options.get(0);
     }
 }

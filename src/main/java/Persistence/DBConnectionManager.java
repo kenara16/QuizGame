@@ -72,7 +72,7 @@ public class DBConnectionManager {
             Document doc = iter.next();
 
             // Create Question objects.
-            List<String> options = new ArrayList<>();
+            ArrayList<String> options = new ArrayList<>();
             String question = (String) doc.get(QUESTION);
             options.add((String) doc.get(ANSWER1));
             options.add((String) doc.get(ANSWER2));
