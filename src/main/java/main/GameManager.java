@@ -160,7 +160,11 @@ public class GameManager {
             getGameManager().currentTeam.changePointsToSpend(points);
         }
     }
-
+    static public void resetSpendablePoints()
+    {
+        teamOne.resetSpendablePoints();
+        teamTwo.resetSpendablePoints();
+    }
     static public TeamClass getTeamOne() {
         return teamOne;
     }

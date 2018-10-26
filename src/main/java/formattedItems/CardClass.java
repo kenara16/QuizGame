@@ -68,5 +68,9 @@ public class CardClass {
     public void setInvisible(){
         this.checkBox.setVisible(false);
     }
+    public int getPoints()
+    {
+        return this.card.getPoints();
+    }
 }
 
