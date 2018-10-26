@@ -21,7 +21,6 @@ public class InitialScene implements IGameScene {
     }
     public Scene getScene()
     {
-
         Button button1 = new Button("Click here to start the game!");
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override

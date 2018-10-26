@@ -27,10 +27,10 @@ public class CardScene implements IGameScene {
     //Collection of unplayed cards that were not selected for later use
     ArrayList<CardClass> cardsNotSelected = new ArrayList<CardClass>();
     //ArrayList of overall cards in current scene
-    ArrayList<CardClass> cardsInScene;
+    ArrayList<CardClass> cardsInScene = new ArrayList<CardClass>();
     public CardScene(){
         //Get the cards in the current scene from the current team's getCards method
-        cardsInScene = GameManager.getCurrentTeam().getCardsFromDB();
+        //cardsInScene = GameManager.getCurrentTeam().getCardsFromDB();
     }
     public IGameScene getNext()
     {
@@ -69,7 +69,7 @@ public class CardScene implements IGameScene {
         confirmCards.setAlignment(Pos.CENTER);
         confirmCards.getChildren().add(button1);
 
-        /*
+
         //Game logic to generate cards from database of cards and references card class for formatting
         for (int i=0; i<4;i++) {
             //Will replace this with logic to pull cards from database
@@ -78,7 +78,7 @@ public class CardScene implements IGameScene {
             cardChoices.getChildren().add(newCard.getCardUI());
             cardsInScene.add(newCard);
         }
-        */
+
 
         layout.setCenter(cardChoices);
         //layout.setLeft(team1Backlog); //For Team 1 Backlog
