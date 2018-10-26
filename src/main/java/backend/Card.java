@@ -63,4 +63,8 @@ public class Card {
                 ", question=" + question +
                 '}';
     }
+    public int getPoints()
+    {
+        return this.points;
+    }
 }

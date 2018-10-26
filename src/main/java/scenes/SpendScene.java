@@ -26,6 +26,7 @@ public class SpendScene implements IGameScene {
             }
             else
             {
+                GameManager.resetSpendablePoints();
                 return new CardScene();
             }
         }

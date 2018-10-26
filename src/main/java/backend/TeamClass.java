@@ -110,8 +110,13 @@ public class TeamClass {
     public ArrayList<CardClass> getCardsPlayed(){
         return this.playedCards;
     }
-    public void setPlayedCards(ArrayList<CardClass> newList){
+    public void setPlayedCards(ArrayList<CardClass> newList)
+    {
         this.playedCards = newList;
+        for (CardClass card : this.playedCards)
+        {
+            this.changePointsToSpend(card.getPoints());
+        }
     }
     public void clearCardsPlayed(){this.playedCards.clear();}
 
@@ -135,6 +140,10 @@ public class TeamClass {
     }
     public void setPointsToSpend(Integer pointsToSpend) {
         this.pointsToSpend = pointsToSpend;
+    }
+    public void resetSpendablePoints()
+    {
+        this.pointsToSpend =0;
     }
 
     public void setAnswer(String answer) {
