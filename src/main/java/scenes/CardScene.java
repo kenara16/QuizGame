@@ -14,6 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import main.GameManager;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import formattedItems.BacklogDisplay;
 
 import java.lang.reflect.Array;
@@ -23,9 +25,9 @@ import java.util.List;
 public class CardScene implements IGameScene {
     public String title = "Dealing Cards to Team " + GameManager.getTeamNumber();
     //Collection of cards selected in current scene to send to current TeamClass
-    ArrayList<CardClass> cardsSelected = new ArrayList<CardClass>();
+    ArrayList<CardClass> cardsSelected;
     //Collection of unplayed cards that were not selected for later use
-    ArrayList<CardClass> cardsNotSelected = new ArrayList<CardClass>();
+    ArrayList<CardClass> cardsNotSelected;
     //ArrayList of overall cards in current scene
     ArrayList<CardClass> cardsInScene = new ArrayList<CardClass>();
     public CardScene(){
@@ -48,6 +50,9 @@ public class CardScene implements IGameScene {
         return title;
     }
     public void getCards(ArrayList<CardClass> cardsInScene){
+        //reset to 0 after each selection
+        cardsSelected = new ArrayList<CardClass>();
+        cardsNotSelected = new ArrayList<CardClass>();
         for (CardClass card : cardsInScene){
             if (card.getCheckboxSelection()){
                 cardsSelected.add(card);
@@ -90,9 +95,20 @@ public class CardScene implements IGameScene {
             @Override
             public void handle(ActionEvent event) {
                 getCards(cardsInScene);
-                GameManager.getCurrentTeam().setPlayedCards(cardsSelected);
-                GameManager.getCurrentTeam().setNotPlayedCards(cardsNotSelected);
-                SceneManager.nextScene();
+                if (cardsSelected.size() != 2)
+                {
+                    Alert errorAlert = new Alert(AlertType.ERROR);
+                    errorAlert.setHeaderText("Input not valid");
+                    errorAlert.setContentText("Please select two cards");
+                    errorAlert.showAndWait();
+                }
+                else
+                {
+                    GameManager.getCurrentTeam().setPlayedCards(cardsSelected);
+                    GameManager.getCurrentTeam().setNotPlayedCards(cardsNotSelected);
+                    SceneManager.nextScene();
+                }
+
             }
         });
         return scene;
