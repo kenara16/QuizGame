@@ -19,6 +19,7 @@ import scenes.SceneManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class GameManager {
     Stage stage;
@@ -27,7 +28,7 @@ public class GameManager {
     TeamClass currentTeam;
     private static GameManager gameManager = new GameManager();
     ArrayList<Card> unseenCards;
-    static ArrayList<Card> seenCards;
+    static ArrayList<Card> seenCards= new ArrayList<Card>();
     static String correctAnswer;
     static Question quizQuestion;
 
@@ -35,7 +36,7 @@ public class GameManager {
     {
         teamOne = new TeamClass(new Backlog());
         teamTwo = new TeamClass(new Backlog());
-        createCards();
+        //createCards();
     }
     public static boolean currentlyFirstTeam()
     {
@@ -96,6 +97,7 @@ public class GameManager {
         getGameManager().stage.setTitle("Team " + getTeamNumber());
         getGameManager().stage.show();
     }
+    /*
     private void createCards()
     {
 
@@ -120,6 +122,14 @@ public class GameManager {
 
         }
     }
+    */
+    static public void setSeenCards(List<Card> cardList){
+        for(Card card: cardList){
+            seenCards.add(card);
+        }
+
+    }
+    /*
     static public Card getCard()
     {
         Card chosenCard;
@@ -128,6 +138,7 @@ public class GameManager {
         getGameManager().seenCards.add(chosenCard);
         return chosenCard;
     }
+    */
 
     static public Question getQuestion(){
         if(getCurrentTeam()==teamOne) {
