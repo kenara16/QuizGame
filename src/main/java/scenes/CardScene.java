@@ -30,6 +30,7 @@ public class CardScene implements IGameScene {
     ArrayList<CardClass> cardsNotSelected;
     //ArrayList of overall cards in current scene
     ArrayList<CardClass> cardsInScene = new ArrayList<CardClass>();
+    List<Card> drawnCards;
     public CardScene(){
         //Get the cards in the current scene from the current team's getCards method
         //cardsInScene = GameManager.getCurrentTeam().getCardsFromDB();
@@ -73,16 +74,18 @@ public class CardScene implements IGameScene {
         confirmCards.setAlignment(Pos.CENTER);
         confirmCards.getChildren().add(button1);
 
+        //Draws 4 Cards From Database and displays them as each a "CardClass" formatted item.
+        drawnCards= CardQuizManager.Draw4Cards();
 
-        //Game logic to generate cards from database of cards and references card class for formatting
-        for (int i=0; i<4;i++) {
-            //Will replace this with logic to pull cards from database
-
-            CardClass newCard= new CardClass(GameManager.getCard());
+        for (Card card : drawnCards) {
+            CardClass newCard = new CardClass(card);
             cardChoices.getChildren().add(newCard.getCardUI());
             cardsInScene.add(newCard);
         }
-
+        //sets SeenCards for
+        GameManager.setSeenCards(drawnCards);
+        layout.setCenter(cardChoices);
+        layout.setBottom(confirmCards);
 
         layout.setCenter(cardChoices);
         //layout.setLeft(team1Backlog); //For Team 1 Backlog
@@ -113,4 +116,3 @@ public class CardScene implements IGameScene {
         return scene;
     }
 }
-
