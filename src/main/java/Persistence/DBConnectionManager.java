@@ -96,6 +96,9 @@ public class DBConnectionManager {
         return true;
     }
 
+
+    // Drop the collection in DB
+    // Create a new collection and shuffle the collection and pass it to DB.
     public static void PleaseDontTouchThisMethod() {
         MyDBClient.ConnectToDB();
         MongoDatabase storyDB = MyDBClient.GetMongoStoryDatabase();

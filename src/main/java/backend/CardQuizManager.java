@@ -23,8 +23,17 @@ public class CardQuizManager {
         CardQuizManager pMan = CardQuizManager.GetManager();
         assert (pMan != null);
 
-        pMan.cards = new ArrayList<>();
-        DBConnectionManager.Get4CardAnd4Quiz(pMan.cards);
-        return pMan.cards;
+        List<Card> newCards = new ArrayList<>();
+        DBConnectionManager.Get4CardAnd4Quiz(newCards);
+        return newCards;
+    }
+
+    public static Question DrawAQuestionFromRevealedCard() {
+        CardQuizManager pMan = CardQuizManager.GetManager();
+        assert (pMan != null);
+
+        Question question = null;
+        //TODO: GET QUESTION FROM DBMANAGER.
+        return question;
     }
 }
