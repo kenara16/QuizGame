@@ -1,4 +1,6 @@
 target/
 
+# Ignore an entire directory
+/.idea/
 .idea/
 *.iml

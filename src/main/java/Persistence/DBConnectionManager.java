@@ -3,15 +3,17 @@ package Persistence;
 import backend.Card;
 import backend.Question;
 import backend.Story;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Aggregates;
+import org.bson.BsonDocument;
 import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.conversions.Bson;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -51,14 +53,39 @@ public class DBConnectionManager {
         return storyList;
     }
 
+    public static Question GetAQuestionFromRevealedCardFromMongoDB() {
+        MyDBClient.ConnectToDB();
+        MongoDatabase storyDB = MyDBClient.GetMongoStoryDatabase();
+        MongoCollection<Document> collection = storyDB.getCollection(CARD_AND_QUIZ);
 
+        Bson match = Aggregates.match(eq(IS_REVEALED, true));
+        Bson sample = Aggregates.sample(1);
+
+        collection.aggregate(Arrays.asList(match, sample));
+
+        AggregateIterable<Document> aggrIter = collection.aggregate(Arrays.asList(match, sample));
+        Iterator<Document> iter = aggrIter.iterator();
+
+        Question question = null;
+        while(iter.hasNext()) {
+            Document doc = iter.next();
+            ArrayList<String> options = new ArrayList<>();
+            String problemStatement = (String) doc.get(QUESTION);
+            options.add((String) doc.get(ANSWER1));
+            options.add((String) doc.get(ANSWER2));
+            options.add((String) doc.get(ANSWER3));
+            options.add((String) doc.get(ANSWER4));
+            question = new Question(problemStatement, options);
+        }
+
+        return question;
+    }
 
 
     // Please feed me with empty Lists which is not instantiated.
     // I will return ArrayList for each data types.
     // If I return true, successfully I provided you 4 cards.
     // If I return false, unfortunately it is the last cards set or I have nothing to give you anymore.
-
     public static boolean Get4CardAnd4Quiz(List<Card> cards) {
         MyDBClient.ConnectToDB();
         MongoDatabase storyDB = MyDBClient.GetMongoStoryDatabase();
@@ -96,6 +123,9 @@ public class DBConnectionManager {
         return true;
     }
 
+
+    // Drop the collection in DB
+    // Create a new collection and shuffle the collection and pass it to DB.
     public static void PleaseDontTouchThisMethod() {
         MyDBClient.ConnectToDB();
         MongoDatabase storyDB = MyDBClient.GetMongoStoryDatabase();
@@ -277,6 +307,38 @@ public class DBConnectionManager {
                 .append("Ans2", "The amount of stories that have yet to be completed")
                 .append("Ans3", "How many stories you can add each sprint")
                 .append("Ans4", "The amount of stories a team has completed the previous sprint, or averaged across the last couple of sprints"));
+
+
+        list.add(new Document("ID", 16)
+                .append("Title", "Rituals")
+                .append("IsRevealed", false)
+                .append("Context", "The Sprint review is a Scrum ritual where the development team demonstrates what has been completed and explains any work that was planned but not completed")
+                .append("Question", "What is not part of a Sprint review?")
+                .append("Ans1", "Determining what should be “stopped”, “started” and “continued” for next sprint")
+                .append("Ans2", "Demoing new functionality of software to project owner and other potential stakeholders.")
+                .append("Ans3", "Going over what was not completed during the sprint.")
+                .append("Ans4", "Presenting code that is coded, tested and usable to the potential stakeholders."));
+
+        list.add(new Document("ID", 17)
+                .append("Title", "Rituals")
+                .append("IsRevealed", false)
+                .append("Context", "Sprint planning is where the dev team defines the sprint goal, selects items from the backlog, determining amount of work for each item and finally deciding what can be reasonably accomplished for the upcoming sprint.")
+                .append("Question", "Which activity should not be part of Sprint Planning?")
+                .append("Ans1", "Add items to backlog because of changing project requirements.")
+                .append("Ans2", "Selecting items from backlog for upcoming sprint.")
+                .append("Ans3", "Determining how much work each item from the backlog will take to complete.")
+                .append("Ans4", "Compare upcoming sprint goal with previous sprint velocity to determine if goal is feasible."));
+
+        list.add(new Document("ID", 18)
+                .append("Title", "Rituals")
+                .append("IsRevealed", false)
+                .append("Context", "Story points are determined on a team-by-team basis. There is no one scale for story points but they usually stay away from a linear scale to reduce ambiguity. Story points also should not equate themselves to hours because they are an estimation of difficulty not work hours.")
+                .append("Question", "Which of the following isn’t a good scale for story points.")
+                .append("Ans1", "A scale from 1-10.")
+                .append("Ans2", "A logarithmic scale ")
+                .append("Ans3", "A scale based on Fibonacci sequence")
+                .append("Ans4", "A scale based on shirt sizes (S,M,L,XL)"));
+
 
         Collections.shuffle(list);
         collection.insertMany(list);
