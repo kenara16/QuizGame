@@ -33,12 +33,12 @@ public class Main extends Application {
 //        }
 //
 
-        List<Card> cards = CardQuizManager.GetAllCards();
-        int count = 1;
-        for(Card card : cards) {
-            System.out.println("======================== Card " + count++ + " ==============================");
-            System.out.println(card);
-        }
+//        List<Card> cards = CardQuizManager.GetAllCards();
+//        int count = 1;
+//        for(Card card : cards) {
+//            System.out.println("======================== Card " + count++ + " ==============================");
+//            System.out.println(card);
+//        }
 
 //        System.out.println("Get a question based on drawn cards");
 //        System.out.println(CardQuizManager.DrawAQuestionFromRevealedCard());
