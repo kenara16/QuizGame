@@ -32,6 +32,15 @@ public class Main extends Application {
 //            System.out.println(card);
 //        }
 //
+//        System.out.println("Get a question based on drawn cards");
+//        System.out.println(CardQuizManager.DrawAQuestionFromRevealedCard());
+//        System.out.println(CardQuizManager.DrawAQuestionFromRevealedCard());
+//        System.out.println(CardQuizManager.DrawAQuestionFromRevealedCard());
+//        System.out.println(CardQuizManager.DrawAQuestionFromRevealedCard());
+//        System.out.println(CardQuizManager.DrawAQuestionFromRevealedCard());
+//        System.out.println(CardQuizManager.DrawAQuestionFromRevealedCard());
+
+//
 //        cards = CardQuizManager.Draw4Cards();
 //        for(Card card : cards) {
 //            System.out.println(card);

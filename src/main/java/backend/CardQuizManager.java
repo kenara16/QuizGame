@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardQuizManager {
-    private List<Card> cards;
+    //private List<Card> cards;
     private static CardQuizManager privInstance;
 
     private CardQuizManager() {}
@@ -32,8 +32,7 @@ public class CardQuizManager {
         CardQuizManager pMan = CardQuizManager.GetManager();
         assert (pMan != null);
 
-        Question question = null;
-        //TODO: GET QUESTION FROM DBMANAGER.
+        Question question = DBConnectionManager.GetAQuestionFromRevealedCardFromMongoDB();
         return question;
     }
 }

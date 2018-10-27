@@ -3,15 +3,17 @@ package Persistence;
 import backend.Card;
 import backend.Question;
 import backend.Story;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Aggregates;
+import org.bson.BsonDocument;
 import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.conversions.Bson;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -51,14 +53,39 @@ public class DBConnectionManager {
         return storyList;
     }
 
+    public static Question GetAQuestionFromRevealedCardFromMongoDB() {
+        MyDBClient.ConnectToDB();
+        MongoDatabase storyDB = MyDBClient.GetMongoStoryDatabase();
+        MongoCollection<Document> collection = storyDB.getCollection(CARD_AND_QUIZ);
 
+        Bson match = Aggregates.match(eq(IS_REVEALED, true));
+        Bson sample = Aggregates.sample(1);
+
+        collection.aggregate(Arrays.asList(match, sample));
+
+        AggregateIterable<Document> aggrIter = collection.aggregate(Arrays.asList(match, sample));
+        Iterator<Document> iter = aggrIter.iterator();
+
+        Question question = null;
+        while(iter.hasNext()) {
+            Document doc = iter.next();
+            ArrayList<String> options = new ArrayList<>();
+            String problemStatement = (String) doc.get(QUESTION);
+            options.add((String) doc.get(ANSWER1));
+            options.add((String) doc.get(ANSWER2));
+            options.add((String) doc.get(ANSWER3));
+            options.add((String) doc.get(ANSWER4));
+            question = new Question(problemStatement, options);
+        }
+
+        return question;
+    }
 
 
     // Please feed me with empty Lists which is not instantiated.
     // I will return ArrayList for each data types.
     // If I return true, successfully I provided you 4 cards.
     // If I return false, unfortunately it is the last cards set or I have nothing to give you anymore.
-
     public static boolean Get4CardAnd4Quiz(List<Card> cards) {
         MyDBClient.ConnectToDB();
         MongoDatabase storyDB = MyDBClient.GetMongoStoryDatabase();
