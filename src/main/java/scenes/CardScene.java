@@ -66,7 +66,6 @@ public class CardScene implements IGameScene {
         BorderPane layout = new BorderPane();
         VBox cardChoices= new VBox(20);
         HBox confirmCards = new HBox(20);
-        Text msg = new Text();
 
         //Buttons to confirm card selection and to move to next card select screen.
         //HBox will hold this button(s).
