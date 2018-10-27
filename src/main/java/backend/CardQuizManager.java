@@ -1,6 +1,7 @@
 package backend;
 
 import Persistence.DBConnectionManager;
+import com.mongodb.client.model.DBCollectionCountOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,5 +35,10 @@ public class CardQuizManager {
 
         Question question = DBConnectionManager.GetAQuestionFromRevealedCardFromMongoDB();
         return question;
+    }
+
+    public static List<Card> GetAllCards() {
+        List<Card> cards = DBConnectionManager.GetAllCardsFromCloudDB();
+        return cards;
     }
 }

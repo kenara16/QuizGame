@@ -78,6 +78,7 @@ public class DBConnectionManager {
             question = new Question(problemStatement, options);
         }
 
+        MyDBClient.CloseConnectioin();
         return question;
     }
 
@@ -123,6 +124,36 @@ public class DBConnectionManager {
         return true;
     }
 
+    public static List<Card> GetAllCardsFromCloudDB() {
+        MyDBClient.ConnectToDB();
+        MongoDatabase storyDB = MyDBClient.GetMongoStoryDatabase();
+        MongoCollection<Document> collection = storyDB.getCollection(CARD_AND_QUIZ);
+
+        FindIterable<Document> iterDoc = collection.find();
+        Iterator<Document> iter = iterDoc.iterator();
+
+        List<Card> cards = new ArrayList<>();
+
+        while(iter.hasNext()) {
+            Document doc = iter.next();
+
+            // Create Question objects.
+            ArrayList<String> options = new ArrayList<>();
+            String question = (String) doc.get(QUESTION);
+            options.add((String) doc.get(ANSWER1));
+            options.add((String) doc.get(ANSWER2));
+            options.add((String) doc.get(ANSWER3));
+            options.add((String) doc.get(ANSWER4));
+            Question questionObj = new Question(question, options);
+
+            Card card = new Card((String)doc.get(TITLE), (String)doc.get(CONTEXT), (Integer)doc.get(ID), questionObj);
+            cards.add(card);
+        }
+        MyDBClient.CloseConnectioin();
+        return cards;
+    }
+
+
 
     // Drop the collection in DB
     // Create a new collection and shuffle the collection and pass it to DB.
@@ -141,8 +172,7 @@ public class DBConnectionManager {
         list.add(new Document("ID", 1)
                 .append("Title", "Scrum")
                 .append("IsRevealed", false)
-                .append("Context", "Burn-up chart is used to keep track of the progress of the project.\n" +
-                        "Burn-up charts represent how much work has been completed.")
+                .append("Context", "Burn-up chart is used to keep track of the progress of the project. Burn-up charts represent how much work has been completed.")
                 .append("Question", "What is the role of the burn-up chart?")
                 .append("Ans1", "Burn-up chart represent how much work has been completed.")
                 .append("Ans2", "Burn-up chart represent the remaining work.")
@@ -152,8 +182,7 @@ public class DBConnectionManager {
         list.add(new Document("ID", 2)
                 .append("Title", "Scrum")
                 .append("IsRevealed", false)
-                .append("Context", "Burn-down charts is used to keep track of the progress of the project.\n" +
-                        "Burn-down chart represents the remaining work in a project.")
+                .append("Context", "Burn-down charts is used to keep track of the progress of the project. Burn-down chart represents the remaining work in a project.")
                 .append("Question", "What is the role of the burn-down chart?")
                 .append("Ans1", "Burn-down chart represent the remaining work.")
                 .append("Ans2", "Burn-down chart represent how much work has been completed.")
@@ -163,11 +192,9 @@ public class DBConnectionManager {
         list.add(new Document("ID", 3)
                 .append("Title", "Scrum")
                 .append("IsRevealed", false)
-                .append("Context", "Project Owner – who has the responsibility of managing the product backlog.\n" +
-                        "Works with end users and customers and provide proper requirement to the team to build the proper product.")
+                .append("Context", "Project Owner – who has the responsibility of managing the product backlog. Works with end users and customers and provide proper requirement to the team to build the proper product.")
                 .append("Question", "What is the role of the project owner?")
-                .append("Ans1", "Who has the responsibility of managing the product backlog.\n" +
-                        "Works with end users and customers and provide proper requirement to the team to build the proper product.")
+                .append("Ans1", "Who has the responsibility of managing the product backlog. Works with end users and customers and provide proper requirement to the team to build the proper product.")
                 .append("Ans2", "Who works with scrum team to make sure each sprint gets complete on time. Scrum master ensure proper work flow to the team.")
                 .append("Ans3", "Who should be self-organized, dedicated and responsible for high quality of the work.")
                 .append("Ans4", "Who is modelled around the people who will use the product."));
@@ -175,12 +202,10 @@ public class DBConnectionManager {
         list.add(new Document("ID", 4)
                 .append("Title", "Scrum")
                 .append("IsRevealed", false)
-                .append("Context", "Scrum Master – who works with scrum team to make sure each sprint gets complete on time.\n" +
-                        "Scrum master ensure proper work flow to the team.")
+                .append("Context", "Scrum Master – who works with scrum team to make sure each sprint gets complete on time. Scrum master ensure proper work flow to the team.")
                 .append("Question", "What is the role of the scrum master?")
                 .append("Ans1", "Who works with scrum team to make sure each sprint gets complete on time. Scrum master ensure proper work flow to the team.")
-                .append("Ans2", "Who has the responsibility of managing the product backlog.\n" +
-                        "Works with end users and customers and provide proper requirement to the team to build the proper product.")
+                .append("Ans2", "Who has the responsibility of managing the product backlog. Works with end users and customers and provide proper requirement to the team to build the proper product.")
                 .append("Ans3", "Who should be self-organized, dedicated and responsible for high quality of the work.")
                 .append("Ans4", "Who is modelled around the people who will use the product."));
 
@@ -190,32 +215,24 @@ public class DBConnectionManager {
                 .append("Context", "Scrum Team – Each member in the team should be self-organized, dedicated and responsible for high quality of the work.")
                 .append("Question", "What is the role of the scrum team?")
                 .append("Ans1", "Who should be self-organized, dedicated and responsible for high quality of the work.")
-                .append("Ans2", "Who has the responsibility of managing the product backlog.\n" +
-                        "Works with end users and customers and provide proper requirement to the team to build the proper product.")
+                .append("Ans2", "Who has the responsibility of managing the product backlog. Works with end users and customers and provide proper requirement to the team to build the proper product.")
                 .append("Ans3", "Who works with scrum team to make sure each sprint gets complete on time. Scrum master ensure proper work flow to the team.")
                 .append("Ans4", "Who is modelled around the people who will use the product."));
 
         list.add(new Document("ID", 6)
                 .append("Title", "Concept")
                 .append("IsRevealed", false)
-                .append("Context", "Boehm’s Law is that the closer you get the end of production, " +
-                        "the less uncertainty there is and the more clear it is how close you are to the end. " +
-                        "This is represented by the cone of uncertainty. " +
-                        "Agile helps narrow the cone of uncertainty through its iterative lifecycle.")
+                .append("Context", "Boehm’s Law is that the closer you get the end of production, the less uncertainty there is and the more clear it is how close you are to the end. This is represented by the cone of uncertainty. Agile helps narrow the cone of uncertainty through its iterative lifecycle.")
                 .append("Question", "What is the cone of uncertainty?")
-                .append("Ans1", "The cone of uncertainty is connected to Boehm’s law, which states that as you get " +
-                        "close to the end of the project, the more clear the amount it will cost you.")
-                .append("Ans2", "The cone of uncertainty is connected to Boehm’s law, which states that as you get " +
-                        "closer to the end of the project, it becomes more clear how much time the project will take.")
+                .append("Ans1", "The cone of uncertainty is connected to Boehm’s law, which states that as you get close to the end of the project, the more clear the amount it will cost you.")
+                .append("Ans2", "The cone of uncertainty is connected to Boehm’s law, which states that as you get closer to the end of the project, it becomes more clear how much time the project will take.")
                 .append("Ans3", "The cone of uncertainty is how uncertain you are about a particular problem at the beginning of a particular sprint.")
                 .append("Ans4", "The cone of uncertainty is not related to software development."));
 
         list.add(new Document("ID", 7)
                 .append("Title", "Concept")
                 .append("IsRevealed", false)
-                .append("Context", "Tasks are individual, small, particular items of a story.  Stories are Combined to " +
-                        "form epics. Tasks can be completed in a couple of hours, stories can be completed in one " +
-                        "sprint, and epics are completed over the course of multiple sprints.")
+                .append("Context", "Tasks are individual, small, particular items of a story.  Stories are Combined to form epics. Tasks can be completed in a couple of hours, stories can be completed in one sprint, and epics are completed over the course of multiple sprints.")
                 .append("Question", "What is the proper ordering of tasks, stories, and epics?")
                 .append("Ans1", "Tasks compose epics, and epics compose stories.")
                 .append("Ans2", "Epics compose stories, and stories compose tasks.")
@@ -226,9 +243,7 @@ public class DBConnectionManager {
         list.add(new Document("ID", 8)
                 .append("Title", "Rituals")
                 .append("IsRevealed", false)
-                .append("Context", "Backlog Grooming is where the team evaluates which items on the backlog are no " +
-                        "longer relevant, what new stories must be added, and which estimates may be off." +
-                        "It is important to make sure that the backlog is up to date and reliable throughout the project.")
+                .append("Context", "Backlog Grooming is where the team evaluates which items on the backlog are no longer relevant, what new stories must be added, and which estimates may be off. It is important to make sure that the backlog is up to date and reliable throughout the project.")
                 .append("Question", "When your team meets to perform backlog grooming, what should they be doing?")
                 .append("Ans1", "Adding items to the backlog that must be completed.")
                 .append("Ans2", "Deleting items from the backlog.")
@@ -238,10 +253,7 @@ public class DBConnectionManager {
         list.add(new Document("ID", 9)
                 .append("Title", "Rituals")
                 .append("IsRevealed", false)
-                .append("Context", "The retrospective is an important step that should be done at the end of every " +
-                        "sprint in order to decide what went well for your team and what needed improvement. " +
-                        "One popular format is stop, start, continue, where a team discusses what they should " +
-                        "stop doing, what they should start doing, and what they should continue doing")
+                .append("Context", "The retrospective is an important step that should be done at the end of every sprint in order to decide what went well for your team and what needed improvement. One popular format is stop, start, continue, where a team discusses what they should stop doing, what they should start doing, and what they should continue doing")
                 .append("Question", "One popular retrospective style is called what?")
                 .append("Ans1", "Stop, begin, continue")
                 .append("Ans2", "Halt, start, continue")
@@ -340,7 +352,7 @@ public class DBConnectionManager {
                 .append("Ans4", "A scale based on shirt sizes (S,M,L,XL)"));
 
 
-        Collections.shuffle(list);
+//        Collections.shuffle(list);
         collection.insertMany(list);
         MyDBClient.CloseConnectioin();
 

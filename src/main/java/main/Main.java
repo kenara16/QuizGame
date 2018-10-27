@@ -22,7 +22,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        DBConnectionManager.PleaseDontTouchThisMethod();
+//        DBConnectionManager.PleaseDontTouchThisMethod();
 
 
 // This code is for testing DB part.
@@ -32,6 +32,14 @@ public class Main extends Application {
 //            System.out.println(card);
 //        }
 //
+
+        List<Card> cards = CardQuizManager.GetAllCards();
+        int count = 1;
+        for(Card card : cards) {
+            System.out.println("======================== Card " + count++ + " ==============================");
+            System.out.println(card);
+        }
+
 //        System.out.println("Get a question based on drawn cards");
 //        System.out.println(CardQuizManager.DrawAQuestionFromRevealedCard());
 //        System.out.println(CardQuizManager.DrawAQuestionFromRevealedCard());
