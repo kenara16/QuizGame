@@ -22,7 +22,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-//        DBConnectionManager.PleaseDontTouchThisMethod();
+        DBConnectionManager.PleaseDontTouchThisMethod();
 
 
 // This code is for testing DB part.
