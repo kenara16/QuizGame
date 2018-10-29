@@ -24,6 +24,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         DBConnectionManager.PleaseDontTouchThisMethod();
 
+        //test
 
 // This code is for testing DB part.
 //        List<Card> cards;
